@@ -3,24 +3,25 @@ package com.naveen.firstApp;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+
 @RestController
 public class CentralController {
   
+
     @GetMapping("/health")
     @ResponseBody
     public String getHealth(){
        return "Running ...";
     }
 
-    @GetMapping("/weather")
     
-    // public String getCurrentWeather(@PathVariable String city){
+    
+    @GetMapping("/weather")
         public String getCurrentWeather(){
        try {
         HttpResponse<JsonNode> response = Unirest.get("https://api.openweathermap.org/data/2.5/weather")
@@ -33,7 +34,6 @@ public class CentralController {
                       System.out.println("response  "+response.getBody());
                      
     } catch (UnirestException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
     }
         return "response.getBody()";  
