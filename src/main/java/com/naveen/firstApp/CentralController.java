@@ -1,5 +1,6 @@
 package com.naveen.firstApp;
 
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,23 +21,33 @@ public class CentralController {
     }
 
     
-    
+
     @GetMapping("/weather")
-        public String getCurrentWeather(){
+        public String getCurrentWeather(){     
        try {
-        HttpResponse<JsonNode> response = Unirest.get("https://api.openweathermap.org/data/2.5/weather")
-                      .queryString("APPID","f27df3b631c823620a00109d89cea18e")
-                      .queryString("lon",10.99)
-                      .queryString("lat",44.34)
+HttpResponse<JsonNode> response = Unirest.get("https://api.open-meteo.com/v1/forecast")
+                      .queryString("daily","temperature_2m_max,temperature_2m_min,sunrise,sunset")
+                      .queryString("longitude",83.22)
+                      .queryString("latitude",17.72)
+                      .queryString("current_weather",true)
+                      .queryString("forecast_days",1)
+                      .queryString("timezone","auto")
                       .header("content-type","application/json")
                       .asJson();
-                       
-                      System.out.println("response  "+response.getBody());
-                     
+                      System.out.println("response  1"+response.getBody());
+                      System.out.println("----------------------");
+                        System.out.println("response  3"+response.getBody().getObject());
+
+                    String myobj = response.getBody().toString();
+                     return myobj;
+              
+                   //System.out.println("sss"+myobj);
     } catch (UnirestException e) {
         e.printStackTrace();
     }
-        return "response.getBody()";  
+   return "success";
+       
+        
     }
 }
 
