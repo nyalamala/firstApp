@@ -22,8 +22,6 @@ public class CentralController {
     
     // public String getCurrentWeather(@PathVariable String city){
         public String getCurrentWeather(){
-            String apiKey = "ea33b3e2f2fb72596550b7a4f6aab312";
-        // System.out.println("city  "+city);
        try {
         HttpResponse<JsonNode> response = Unirest.get("https://api.openweathermap.org/data/2.5/weather")
                       .queryString("APPID","f27df3b631c823620a00109d89cea18e")
@@ -32,10 +30,7 @@ public class CentralController {
                       .header("content-type","application/json")
                       .asJson();
                        
-
-                    
                       System.out.println("response  "+response.getBody());
-    
                      
     } catch (UnirestException e) {
         // TODO Auto-generated catch block
